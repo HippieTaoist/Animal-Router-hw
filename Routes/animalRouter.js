@@ -53,6 +53,13 @@ router.get('/', function (req, res) {
 router.get('/get-animal-by-id/:id', function (req, res) {
     let foundAnimal;
 
+    console.log('56 - id - ', req.params.id);
+    if (req.params.id === undefined) {
+        console.log('58 - yopda')
+        res.json({
+            animalArray
+        })
+    }
     console.log('req.id', req.params.id)
     if (isNaN(+req.params.id)) {
         res.send("Looking for a number here....")
@@ -70,6 +77,22 @@ router.get('/get-animal-by-id/:id', function (req, res) {
         }
     }
 
+})
+
+router.get('/get-animal-by-name/:animal', function (req, res) {
+    let foundAnimal;
+    animalArray.forEach((animal) => {
+        if (animal.animalName == req.params.animal) {
+            foundAnimal = animal;
+        }
+    })
+
+    if (foundAnimal) {
+        res.json(foundAnimal)
+    }
+    if (!foundAnimal) {
+        res.send('animal not found')
+    }
 })
 
 module.exports = router;
