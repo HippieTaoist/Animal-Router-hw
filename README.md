@@ -11,11 +11,11 @@
                     { id: 3, animalName: "hamster" },
                     ];
 
- 1. create a animalRouter.js in the router folder
+ 1. ~~create a animalRouter.js in the router folder~~
 
- 2. make sure to require it in app.js
+ 2.~~ make sure to require it in app.js~~
 
- 3. create a Get request to query all the animalArray and in the same request if query exists your program should able to query a specific animal using animalName
+ 3. ~~create a Get request to query all the animalArray and in the same request if query exists your program should able to query a specific animal using animalName~~~
 
  4. create a Get request that uses params id to query to animal by ID
 
