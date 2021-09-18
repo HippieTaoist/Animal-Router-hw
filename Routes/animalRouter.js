@@ -95,4 +95,29 @@ router.get('/get-animal-by-name/:animal', function (req, res) {
     }
 })
 
+router.post('/add-to-animal-array/', function (req, res) {
+    let duplicateFound
+
+    console.log(Object.keys(req.body).length);
+    if (Object.keys(req.body).length === 0) {
+        res.send('sorry no empty data  \nCan Not Process \nPlease resend')
+    } else {
+
+        animalArray.forEach((animal) => {
+            if (animal.animalName == req.body.animalName) {
+                duplicateFound = animal
+            }
+        })
+
+        if (!duplicateFound) {
+            animalArray.push(req.body)
+            console.log(animalArray);
+            res.json(animalArray)
+        } else {
+            res.send('your animal is already on the list')
+
+        }
+    }
+})
+
 module.exports = router;
