@@ -1,3 +1,4 @@
+const route = require('color-convert/route');
 const express = require('express');
 const router = express.Router();
 
@@ -120,4 +121,29 @@ router.post('/add-to-animal-array/', function (req, res) {
     }
 })
 
+// create a Put request to update the animalName using animalName params.If successfully updated the name, your program should tell the user that successfully updated and send back the updated animal object.If the animal doesnt exists it should tell the user animal doesnt exists please check your spelling
+
+router.put('/update-animal-using-params/:animalUpate', function (req, res) {
+
+    console.log(req.params.animalUpate, req.body);
+    let foundAnimal;
+    animalArray.forEach((animal) => {
+        if (animal.animalName === req.params.animalUpate) {
+            foundAnimal = animalArray.indexOf(animal)
+
+            animal.animalName = req.body.animalName
+        }
+    })
+    console.log(animalArray);
+
+    if (!foundAnimal) {
+        res.send('It looks as though your animal does exist or your spelling is off.')
+    } else {
+        res.json({
+            "Message": "Your animal is updated",
+            animalArray
+        })
+    }
+
+})
 module.exports = router;
