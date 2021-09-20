@@ -123,7 +123,7 @@ router.post('/add-to-animal-array/', function (req, res) {
 
 // create a Put request to update the animalName using animalName params.If successfully updated the name, your program should tell the user that successfully updated and send back the updated animal object.If the animal doesnt exists it should tell the user animal doesnt exists please check your spelling
 
-router.put('/update-animal-using-params/:animalUpate', function (req, res) {
+router.put('/update-animal-using-name-params/:animalUpate', function (req, res) {
 
     console.log(req.params.animalUpate, req.body);
     let foundAnimal;
@@ -141,6 +141,75 @@ router.put('/update-animal-using-params/:animalUpate', function (req, res) {
     } else {
         res.json({
             "Message": "Your animal is updated",
+            animalArray
+        })
+    }
+
+})
+
+router.put('/update-animal-using-id-params/:id', function (req, res) {
+
+    console.log(req.params.id, req.body);
+    let foundAnimal;
+    animalArray.forEach((animal) => {
+        if (animal.id === req.params.id) {
+            foundAnimal = animalArray.indexOf(animal)
+
+            animal.id = req.body.id
+            animal.animalName = req.body.animalName
+        }
+    })
+    console.log(animalArray);
+
+    if (!foundAnimal) {
+        res.send('It looks as though your animal does exist or your spelling is off.')
+    } else {
+        res.json({
+            "Message": "Your animal is updated",
+            animalArray
+        })
+    }
+
+})
+
+router.delete('/delete-animal-using-name-params/:name', function (req, res) {
+    let foundAnimal;
+
+
+    animalArray.forEach((animal) => {
+        if (animal.animalName === req.params.name) {
+            foundAnimal = animalArray.indexOf(animal)
+        }
+    })
+    if (!foundAnimal) {
+        res.send('It looks as though your animal does exist or your spelling')
+    }
+    if (foundAnimal) {
+        animalArray.splice(foundAnimal, 1)
+        res.json({
+            "Message": "Your animal has been eliminated",
+            animalArray
+        })
+    }
+
+})
+
+router.delete('/delete-animal-using-id-params/:id', function (req, res) {
+    let foundAnimal;
+
+
+    animalArray.forEach((animal) => {
+        if (animal.id === req.params.id) {
+            foundAnimal = animalArray.indexOf(animal)
+        }
+    })
+    if (!foundAnimal) {
+        res.send('It looks as though your animal does exist or your spelling')
+    }
+    if (foundAnimal) {
+        animalArray.splice(foundAnimal, 1)
+        res.json({
+            "Message": "Your animal has been eliminated",
             animalArray
         })
     }
